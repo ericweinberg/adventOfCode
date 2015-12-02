@@ -1,15 +1,9 @@
 package com.muddworks.adventOfCode.day1;
 
-import org.apache.commons.io.IOUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.StringReader;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.util.stream.Stream;
+import static com.muddworks.adventOfCode.Utils.getInputString;
 
 /**
  * Santa is trying to deliver presents in a large apartment building, but he can't find the right floor - the directions
@@ -67,15 +61,7 @@ public class Day1 {
         return new Day1Result(floorNumber, position);
     }
 
-    private static String getInputString(String fileName) {
-        InputStream inputStream = Day1.class.getClassLoader().getResourceAsStream(fileName);
-        try {
-            return IOUtils.toString(inputStream);
-        } catch (IOException e) {
-            logger.error("Exception converting to a string", e);
-        }
-        return null;
-    }
+
 
     static class Day1Result {
         private long floorNumber;
