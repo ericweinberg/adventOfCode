@@ -25,29 +25,41 @@ import static com.muddworks.adventOfCode.Utils.getInputString;
 public class Day4 {
 
     private static Logger logger = LoggerFactory.getLogger(Day4.class);
-
+    private int zeroPadding;
     public static void main(String[] args) {
-        Day4 day4 = new Day4();
+        Day4 day4 = new Day4(6);
         Day4Result result = day4.mineBitCoins("yzbqklnj");
         logger.info("The key was {}, the lowest number was {}, and the hash was {}, ",
                 result.getKey(), result.getNumber(), result.getMd5Hash());
     }
 
+    public Day4(int zeroPadding) {
+        this.zeroPadding = zeroPadding;
+    }
+
     public Day4Result mineBitCoins(String key) {
+        long start = System.currentTimeMillis();
         Long counter = 1L;
         String hash = "";
-        while(!hash.startsWith("00000")) {
+        String paddedString = getPaddedString(zeroPadding);
+        while(!hash.startsWith(paddedString)) {
 
             hash = md5Calculator(key+counter);
             counter++;
-            if(counter%5==0) {
-                logger.debug("Still calculating {}", counter);
-            }
         }
 
         Day4Result result = new Day4Result(key, counter-1, hash);
-        logger.debug("Done calculating, result is {}", result);
+
+        logger.info("Done calculating in {}, result is {}", System.currentTimeMillis()-start, result);
         return result;
+    }
+
+    private String getPaddedString(int zeroPadding) {
+        StringBuilder builder = new StringBuilder(zeroPadding);
+        for(int i=0;i<zeroPadding;i++) {
+            builder.append("0");
+        }
+        return builder.toString();
     }
 
     private String md5Calculator(String inputString) {

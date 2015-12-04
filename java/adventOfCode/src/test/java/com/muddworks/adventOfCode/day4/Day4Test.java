@@ -31,7 +31,7 @@ public class Day4Test {
 
     @Test
     public void testSolve() {
-        Day4 day4 = new Day4();
+        Day4 day4 = new Day4(5);
         Day4Result actualResult = day4.mineBitCoins(this.input);
         assertThat(actualResult.getKey(), is(this.expectedResult.getKey()));
         assertThat(actualResult.getNumber(), is(this.expectedResult.getNumber()));
