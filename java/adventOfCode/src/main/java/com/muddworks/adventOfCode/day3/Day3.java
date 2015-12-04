@@ -3,8 +3,6 @@ package com.muddworks.adventOfCode.day3;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.util.HashMap;
-import java.util.Map;
 
 import static com.muddworks.adventOfCode.Utils.getInputString;
 
@@ -20,16 +18,21 @@ import static com.muddworks.adventOfCode.Utils.getInputString;
 
  However, the elf back at the north pole has had a little too much eggnog, and so his directions are a little off,
  and Santa ends up visiting some houses more than once. How many houses receive at least one present?
+
+ --- Part Two ---
+
+ The next year, to speed up the process, Santa creates a robot version of himself, Robo-Santa, to deliver presents
+ with him.
+
+ Santa and Robo-Santa start at the same location (delivering two presents to the same starting house),
+ then take turns moving based on instructions from the elf, who is eggnoggedly reading
+ from the same script as the previous year.
+
+ This year, how many houses receive at least one present?
  */
 public class Day3 {
 
     private static Logger logger = LoggerFactory.getLogger(Day3.class);
-
-    //going to abuse the fact that we don't really need to maintain a coordinate system, we just want to know
-    //the coordinates that were visited.
-    private Map<Coordinate, Integer> coordinateMap = new HashMap<>();
-    private Coordinate startCoordinate = new Coordinate(0, 0);
-
 
     public static void main(String[] args) {
         String fileName = "Day3Input.txt";
@@ -43,25 +46,24 @@ public class Day3 {
 
         if(inputString == null || inputString.trim().isEmpty())
             return new Day3Result(-1);
+        Santa santa = new Santa();
+        Santa roboSanta = new Santa();
 
-        //populate the coordinate map with houses visited (and number of times each was visited)
-        Coordinate previousCoordinate = startCoordinate;
-        updateCoordinateMap(previousCoordinate);
-        for(Character character : inputString.toCharArray()) {
-            Coordinate newCoordinate = previousCoordinate.move(character);
-            updateCoordinateMap(newCoordinate);
-            previousCoordinate = newCoordinate;
+        for(int i=0; i<inputString.length();i++)  {
+            char character = inputString.charAt(i);
+
+            if(i%2 == 0) { //move santa
+                santa.moveSanta(character);
+            }
+            else{
+                roboSanta.moveSanta(character);
+            }
         }
-
+        //merge the two maps together. Since we don't care how many presents were delivered to each house,
+        //we're not going merge the values
+        santa.getCoordinateMap().putAll(roboSanta.getCoordinateMap());
         //figure out how many houses were visited.
-        return new Day3Result(coordinateMap.size());
+        return new Day3Result(santa.getCoordinateMap().size());
     }
 
-    private void updateCoordinateMap(Coordinate coordinate) {
-        Integer temp = coordinateMap.get(coordinate);
-        if(temp == null) {
-            temp = 0;
-        }
-        coordinateMap.put(coordinate, temp+1);
-    }
 }

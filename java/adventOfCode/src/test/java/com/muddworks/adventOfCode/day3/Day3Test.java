@@ -16,9 +16,9 @@ public class Day3Test {
     @Parameterized.Parameters
     public static Collection<Object[]> generateData() {
         return Arrays.asList(new Object[][]{
-                {">", new Day3Result(2)},
-                {"^>v<", new Day3Result(4)},
-                {"^v^v^v^v^v", new Day3Result(2)}
+                {"^v", new Day3Result(3)},
+                {"^>v<", new Day3Result(3)},
+                {"^v^v^v^v^v", new Day3Result(11)}
         });
     }
 
