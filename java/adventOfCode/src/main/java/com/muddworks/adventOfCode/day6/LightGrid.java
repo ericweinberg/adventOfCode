@@ -1,26 +1,24 @@
 package com.muddworks.adventOfCode.day6;
 
-import java.util.Arrays;
-
 public class LightGrid {
 
 
-    private final boolean[][] grid;
+    private final int[][] grid;
 
     public LightGrid(int maxX, int maxY) {
-        grid = new boolean[maxX+1][maxY+1];
+        grid = new int[maxX+1][maxY+1];
         for(int i=0;i<grid.length;i++) {
             for(int j=0;j<grid[i].length;j++) {
-                grid[i][j] = false;
+                grid[i][j] = 0;
             }
         }
     }
 
     public int getLitCount() {
         int count = 0;
-        for (boolean[] aGrid : grid) {
-            for (boolean anAGrid : aGrid) {
-                if (anAGrid) {
+        for (int[] aGrid : grid) {
+            for (int anAGrid : aGrid) {
+                if (anAGrid > 0) {
                     count++;
                 }
             }
@@ -28,10 +26,20 @@ public class LightGrid {
         return count;
     }
 
+    public int getTotalBrightness() {
+        int totalBrightness = 0;
+        for (int[] aGrid : grid) {
+            for (int anAGrid : aGrid) {
+                totalBrightness += anAGrid;
+            }
+        }
+        return totalBrightness;
+    }
+
     public void toggle(int startX, int startY, int stopX, int stopY) {
         for(int i=startX;i<=stopX;i++) {
             for(int j=startY;j<=stopY;j++) {
-                grid[i][j] = !grid[i][j];
+                grid[i][j] = grid[i][j]+2;
             }
         }
     }
@@ -39,7 +47,10 @@ public class LightGrid {
     public void turnOff(int startX, int startY, int stopX, int stopY) {
         for(int i=startX;i<=stopX;i++) {
             for(int j=startY;j<=stopY;j++) {
-                grid[i][j] = false;
+                grid[i][j] = grid[i][j]-1;
+                if(grid[i][j] < 0) {
+                    grid[i][j] = 0;
+                }
             }
         }
     }
@@ -47,7 +58,7 @@ public class LightGrid {
     public void turnOn(int startX, int startY, int stopX, int stopY) {
         for(int i=startX;i<=stopX;i++) {
             for(int j=startY;j<=stopY;j++) {
-                grid[i][j] = true;
+                grid[i][j] = grid[i][j]+1;
             }
         }
     }

@@ -17,11 +17,12 @@ public class Day6Test {
     @Parameterized.Parameters
     public static Collection<Object[]> generateData() {
         return Arrays.asList(new Object[][]{
-                {Arrays.asList("turn on 0,0 through 999,999"), new Day6Result(1000000)},
-                {Arrays.asList("toggle 0,0 through 999,0"), new Day6Result(1000)},
-                {Arrays.asList("turn off 499,499 through 500,500"), new Day6Result(0)},
+                {Arrays.asList("turn on 0,0 through 999,999"), new Day6Result(1000000, 1000000)},
+                {Arrays.asList("toggle 0,0 through 999,0"), new Day6Result(1000, 2000)},
+                {Arrays.asList("turn off 499,499 through 500,500"), new Day6Result(0,0)},
+                {Arrays.asList("turn on 0,0 through 0,0"), new Day6Result(1, 1)},
                 {Arrays.asList("turn on 0,0 through 999,999","toggle 0,0 through 999,0",
-                        "turn off 499,499 through 500,500" ), new Day6Result(998996)}
+                        "turn off 499,499 through 500,500" ), new Day6Result(999996, 1001996)}
         });
     }
 
