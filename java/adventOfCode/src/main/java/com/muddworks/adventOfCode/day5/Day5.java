@@ -22,6 +22,15 @@ import static com.muddworks.adventOfCode.Utils.getInputString;
  It contains at least one letter that appears twice in a row, like xx, abcdde (dd), or aabbccdd (aa, bb, cc, or dd).
  It does not contain the strings ab, cd, pq, or xy, even if they are part of one of the other requirements.
 
+ --- Part Two ---
+
+ Realizing the error of his ways, Santa has switched to a better model of determining whether a string is naughty or nice. None of the old rules apply, as they are all clearly ridiculous.
+
+ Now, a nice string is one with all of the following properties:
+
+ It contains a pair of any two letters that appears at least twice in the string without overlapping, like xyxy (xy) or aabcdefgaa (aa), but not like aaa (aa, but it overlaps).
+ It contains at least one letter which repeats with exactly one letter between them, like xyx, abcdefeghi (efe), or even aaa.
+
  */
 public class Day5 {
 
@@ -41,15 +50,46 @@ public class Day5 {
          int niceCount = 0;
          int naughtyCount = 0;
          for(String string : strings) {
-             if(!containsInvalidString(string) &&
-                     hasDoubleCharacter(string) &&
-                     hasThreeVowels(string)) {
+             if(repeatingWithDistanceOfOne(string) && hasPairThatReoccursAtLeastTwice(string) ) {
                 niceCount++;
              }else {
                  naughtyCount++;
              }
          }
          return new Day5Result(niceCount, naughtyCount);
+    }
+    private boolean hasPairThatReoccursAtLeastTwice(String string) {
+        for(int i=0;i<string.length();i++) {
+
+            if(i+2 < string.length()) {
+                final String searchString = string.substring(i, i+2);
+                if(string.indexOf(searchString, i+2) > 0) {
+                    return true;
+                }
+            }
+            else {
+                //no next character, if we haven't returned true by now, then there is no match.
+                return false;
+            }
+        }
+        return false;
+    }
+
+
+    private boolean repeatingWithDistanceOfOne(String string) {
+        for(int i=0;i<string.length();i++) {
+            char character = string.charAt(i);
+            if(i+2 < string.length()) {
+                char nextChar = string.charAt(i+2);
+                if(character == nextChar)
+                    return true;
+            }
+            else {
+                //no next character, if we haven't returned true by now, then there is no match.
+                return false;
+            }
+        }
+        return false;
     }
 
     private boolean hasThreeVowels(String string) {

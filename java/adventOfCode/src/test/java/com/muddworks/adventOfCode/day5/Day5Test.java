@@ -18,12 +18,11 @@ public class Day5Test {
     @Parameterized.Parameters
     public static Collection<Object[]> generateData() {
         return Arrays.asList(new Object[][]{
-                {Arrays.asList("ugknbfddgicrmopn"), new Day5Result(1, 0)},
-                {Arrays.asList("aaa"), new Day5Result(1, 0)},
-                {Arrays.asList("jchzalrnumimnmhp"), new Day5Result(0, 1)},
-                {Arrays.asList("haegwjzuvuyypxyu"), new Day5Result(0, 1)},
-                {Arrays.asList("dvszwmarrgswjxmb"), new Day5Result(0, 1)},
-                {Arrays.asList("aaa", "ugknbfddgicrmopn", "jchzalrnumimnmhp", "haegwjzuvuyypxyu", "dvszwmarrgswjxmb"), new Day5Result(2,3)},
+                {Arrays.asList("qjhvhtzxzqqjkmpb"), new Day5Result(1, 0)},
+                {Arrays.asList("xxyxx"), new Day5Result(1, 0)},
+                {Arrays.asList("uurcxstgmygtbstg"), new Day5Result(0, 1)},
+                {Arrays.asList("ieodomkazucvgmuy"), new Day5Result(0, 1)},
+                {Arrays.asList("qjhvhtzxzqqjkmpb", "xxyxx", "uurcxstgmygtbstg", "ieodomkazucvgmuy"), new Day5Result(2,2)},
 
         });
     }
